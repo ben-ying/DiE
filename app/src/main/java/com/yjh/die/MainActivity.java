@@ -3,12 +3,16 @@ package com.yjh.die;
 import android.os.Bundle;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+
+import android.view.LayoutInflater;
 import android.view.View;
 import androidx.core.view.GravityCompat;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
 import com.google.android.material.navigation.NavigationView;
 import com.yjh.die.databinding.ActivityMainBinding;
+import com.yjh.die.databinding.NavHeaderMainBinding;
+import com.yjh.die.entity.User;
 
 import androidx.databinding.DataBindingUtil;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -16,6 +20,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
+import android.view.ViewGroup;
 
 public class MainActivity extends AppCompatActivity 
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -38,10 +43,19 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-            this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
         navigationView.setNavigationItemSelectedListener(this);
+
+        User user = new User();
+        user.setUsername("Ben");
+        user.setEmail("benying1988@gmail.com");
+        binding.setUser(user);
+
+        View viewHeader = navigationView.getHeaderView(0);
+        NavHeaderMainBinding navBinding = NavHeaderMainBinding.bind(viewHeader);
+        navBinding.setUser(user);
     }
 
     @Override
